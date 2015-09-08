@@ -38,7 +38,7 @@ public class LucianoRobot extends Robot {
 
     private boolean isFriend(String robotName) {
         setDebugProperty("Name enemy: ", robotName);
-        return robotName.startsWith("br")
+        return robotName.startsWith("br.edu.ifc.blu.Luciano")
                 || robotName.startsWith("Luciano");
     }
 
@@ -56,7 +56,6 @@ public class LucianoRobot extends Robot {
         turnLeft(40);
         turnRight(10);
         turnLeft(40);
-
     }
 
     @Override
