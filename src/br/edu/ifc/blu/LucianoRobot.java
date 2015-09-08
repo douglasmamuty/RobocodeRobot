@@ -87,7 +87,7 @@ public class LucianoRobot extends Robot {
 
     @Override
     public void onHitByBullet(HitByBulletEvent event) {
-        if (event.getName().equalsIgnoreCase("sample.Tracker")) {
+        if (event.getName().startsWith("sample.Tracker")) {
             bigShoot(event.getBearing());
         }
     }
