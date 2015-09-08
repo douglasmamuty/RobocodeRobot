@@ -60,7 +60,7 @@ public class LucianoRobot extends Robot {
     @Override
     public void onHitRobot(HitRobotEvent event) {
         if ( ! isFriend(event.getName())) {
-            for (int i = 0; i < 1; i++) {
+            for (int i = 0; i < 3; i++) {
                 bigShoot(event.getBearing());
             }
         }
