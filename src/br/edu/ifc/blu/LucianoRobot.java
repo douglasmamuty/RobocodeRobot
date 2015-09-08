@@ -38,8 +38,7 @@ public class LucianoRobot extends Robot {
 
     private boolean isFriend(String robotName) {
         setDebugProperty("Name enemy: ", robotName);
-        return robotName.startsWith("br.edu.ifc.blu.Luciano")
-                || robotName.startsWith("Luciano");
+        return robotName.startsWith("br.edu.ifc.blu");
     }
 
     @Override
@@ -70,7 +69,7 @@ public class LucianoRobot extends Robot {
 
     private void bigShoot(double initialPositionEnemy) {
         turnGunRight(fixCoordinators(getHeading() + initialPositionEnemy - getGunHeading()));
-        fire(100);
+        fire(3);
     }
 
     private double fixCoordinators(double coordinate) {
