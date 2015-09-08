@@ -6,13 +6,11 @@ import robocode.Robot;
 import java.awt.*;
 
 public class LucianoRobot extends Robot {
+
     @Override
     public void run() {
         setColors(Color.BLUE, Color.BLACK, Color.blue, Color.RED, Color.CYAN);
         back(1000);
-        setDebugProperty("Teste", Double.toString(getX()));
-        setDebugProperty("Teste", Double.toString(getHeading()));
-        setDebugProperty("Teste", Double.toString(getBattleFieldHeight()));
 
         while (getY() != getBattleFieldHeight()) {
             findEnemy();
@@ -20,6 +18,8 @@ public class LucianoRobot extends Robot {
     }
 
     private void findEnemy() {
+        ahead(10);
+        turnLeft(10);
         turnGunLeft(360);
     }
 
@@ -31,21 +31,22 @@ public class LucianoRobot extends Robot {
 
     @Override
     public void onScannedRobot(ScannedRobotEvent event) {
-        if ( ! isFriend(event)) {
-            setDebugProperty("Nome", event.getName());
-            fire(100);
+        if ( ! isFriend(event.getName())) {
+            bigShoot(event.getBearing());
         }
-
     }
 
-    private boolean isFriend(ScannedRobotEvent event) {
-        return event.getName().equals("Luciano1Robot") || event.getName().equals("Luciano2Robot") || event.getName().equals("Luciano3Robot");
+    private boolean isFriend(String robotName) {
+        setDebugProperty("Name enemy: ", robotName);
+        return robotName.startsWith("br")
+                || robotName.startsWith("Luciano");
     }
 
     @Override
     public void onBulletHitBullet(BulletHitBulletEvent event) {
         turnRight(90);
         ahead(100);
+        turnLeft(90);
     }
 
     @Override
@@ -60,9 +61,12 @@ public class LucianoRobot extends Robot {
 
     @Override
     public void onHitRobot(HitRobotEvent event) {
-        for (int i = 0; i < 3; i++) {
-            bigShoot(event.getBearing());
+        if ( ! isFriend(event.getName())) {
+            for (int i = 0; i < 1; i++) {
+                bigShoot(event.getBearing());
+            }
         }
+
     }
 
     private void bigShoot(double initialPositionEnemy) {
@@ -83,4 +87,10 @@ public class LucianoRobot extends Robot {
         return coordinate;
     }
 
+    @Override
+    public void onHitByBullet(HitByBulletEvent event) {
+        if (event.getName().equalsIgnoreCase("sample.Tracker")) {
+            bigShoot(event.getBearing());
+        }
+    }
 }
